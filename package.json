@@ -1,0 +1,85 @@
+{
+	"name": "@davincigraph/hedera-rest-client",
+	"version": "1.0.0",
+	"private": false,
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"description": "A comprehensive, type-safe TypeScript client for the Hedera Mirror Node REST API. This library provides a clean, fluent interface for reading on-chain data from the Hedera network—accounts, tokens, contracts, blocks, topics, transactions, and more—without manually constructing URLs, handling pagination, or managing retries and rate limits.",
+	"license": "MIT",
+	"type": "module",
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"sideEffects": false,
+	"keywords": [
+		"hedera",
+		"mirror-node",
+		"sdk",
+		"rest",
+		"client",
+		"typescript"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DaVinciGraph/hedera-rest-client.git"
+	},
+	"bugs": {
+		"url": "https://github.com/DaVinciGraph/hedera-rest-client/issues"
+	},
+	"homepage": "https://github.com/DaVinciGraph/hedera-rest-client#readme",
+	"engines": {
+		"node": ">=18"
+	},
+	"scripts": {
+		"clean": "rimraf dist",
+		"typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
+		"build": "npm run clean && tsup",
+		"test": "npm run test:unit",
+		"test:unit": "vitest run --exclude tests/e2e.real.api.spec.ts",
+		"test:e2e": "vitest run tests/e2e.real.api.spec.ts",
+		"test:watch": "vitest --exclude tests/e2e.real.api.spec.ts",
+		"test:cov": "vitest run --coverage --exclude tests/e2e.real.api.spec.ts",
+		"test:ui": "vitest --ui --exclude tests/e2e.real.api.spec.ts",
+		"test:ci": "npm run test:cov",
+		"prepack": "npm run build",
+		"prepublishOnly": "npm run typecheck && npm test",
+		"dev": "tsx watch src/playground.ts"
+	},
+	"dependencies": {
+		"bottleneck": "^2.19.5",
+		"lossless-json": "^4.3.1"
+	},
+	"devDependencies": {
+		"@types/node": "^24.9.2",
+		"@vitest/coverage-v8": "^4.0.6",
+		"@vitest/ui": "^4.0.6",
+		"esbuild": "0.28.2",
+		"ioredis": "^5.8.2",
+		"rimraf": "^6.0.1",
+		"tsup": "^8.0.1",
+		"tsx": "^4.20.6",
+		"typescript": "^5.9.3",
+		"vitest": "^4.0.6"
+	},
+	"overrides": {
+		"esbuild": "$esbuild"
+	}
+}
